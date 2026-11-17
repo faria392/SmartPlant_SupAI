@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPlant AI - Módulo Felipe Jordão</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #0F172A;
+      color: #1E293B;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .page-header {
+      text-align: center;
+      color: #F8FAFC;
+      margin-bottom: 32px;
+    }
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #4ADE80;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 14px;
+      color: #94A3B8;
+    }
+    .screens-wrapper {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    /* Moldura de Smartphone (375x812 - Padrão Figma iPhone) */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background-color: #ECFDF5;
+      border-radius: 36px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border: 6px solid #1E293B;
+      position: relative;
+    }
+    .status-bar {
+      height: 44px;
+      background-color: #1B4332;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .app-header {
+      background-color: #1B4332;
+      color: #FFFFFF;
+      padding: 12px 20px 20px 20px;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .app-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .app-subtitle {
+      font-size: 12px;
+      color: #A7F3D0;
+      margin-top: 2px;
+    }
+    .badge-online {
+      background-color: #059669;
+      color: #ECFDF5;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+    .screen-body {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .plant-banner {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .plant-info h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #064E3B;
+    }
+    .plant-info span {
+      font-size: 12px;
+      color: #64748B;
+    }
+    .battery-tag {
+      background-color: #DCFCE7;
+      color: #166534;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+    /* Cartões de Saúde Botânica */
+    .health-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .card-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .card-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #065F46;
+    }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background-color: #E2E8F0;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .progress-fill-green {
+      width: 68%;
+      height: 100%;
+      background-color: #10B981;
+      border-radius: 99px;
+    }
+    .progress-fill-sun {
+      width: 82%;
+      height: 100%;
+      background-color: #F59E0B;
+      border-radius: 99px;
+    }
+    .card-foot {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #64748B;
+    }
+    .grid-2 {
+      display: flex;
+      gap: 12px;
+    }
+    .mini-card {
+      flex: 1;
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .mini-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: #064E3B;
+      margin: 4px 0;
+    }
+    .status-pill-ok {
+      display: inline-block;
+      background-color: #D1FAE5;
+      color: #065F46;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .alert-box {
+      background-color: #FEF3C7;
+      border-left: 4px solid #F59E0B;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      color: #92400E;
+      line-height: 1.4;
+    }
+    .btn-primary {
+      background-color: #1B4332;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 13px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+    }
+    /* Tela 2: Chat IA */
+    .chat-bubble-user {
+      align-self: flex-end;
+      background-color: #1B4332;
+      color: #FFFFFF;
+      padding: 12px 14px;
+      border-radius: 16px 16px 2px 16px;
+      font-size: 12.5px;
+      max-width: 85%;
+      line-height: 1.4;
+    }
+    .chat-bubble-ai {
+      align-self: flex-start;
+      background-color: #FFFFFF;
+      color: #1E293B;
+      padding: 14px;
+      border-radius: 16px 16px 16px 2px;
+      font-size: 12.5px;
+      max-width: 92%;
+      line-height: 1.5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .ai-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: #059669;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .quick-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .chip {
+      background-color: #D1FAE5;
+      color: #065F46;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 99px;
+    }
+    .chat-input-bar {
+      background-color: #FFFFFF;
+      border-radius: 99px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94A3B8;
+      border: 1px solid #CBD5E1;
+    }
+    /* Tela 3: Plano Premium */
+    .price-card {
+      background: linear-gradient(135deg, #1B4332 0%, #065F46 100%);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+    .plan-tag {
+      background-color: rgba(255,255,255,0.2);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 99px;
+      text-transform: uppercase;
+    }
+    .price-big {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 10px 0 4px 0;
+    }
+    .price-big small {
+      font-size: 14px;
+      font-weight: 400;
+      color: #A7F3D0;
+    }
+    .benefit-list {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .benefit-item {
+      font-size: 12px;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .check-icon {
+      color: #059669;
+      font-weight: 700;
+    }
+    .payment-row {
+      display: flex;
+      gap: 10px;
+    }
+    .pay-option {
+      flex: 1;
+      background-color: #FFFFFF;
+      border: 2px solid #10B981;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #064E3B;
+    }
+    .eco-box {
+      background-color: #E0F2FE;
+      color: #0369A1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    /* Barra Inferior */
+    .bottom-nav {
+      height: 64px;
+      background-color: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 12px;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: #94A3B8;
+      cursor: pointer;
+    }
+    .nav-item.active {
+      color: #1B4332;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>SmartPlant AI — Protótipo Mobile (Módulo Felipe Jordão)</h1>
+    <p>Telas 1, 2 e 3: Dashboard de Saúde Botânica, Assistente IA Tropical (RAG) e Assinatura Premium SaaS</p>
+  </div>
+
+  <div class="screens-wrapper">
+
+    <!-- TELA 1: DASHBOARD DE SAÚDE BOTÂNICA -->
+    <div class="phone-frame" id="tela-dashboard">
+      <div>
+        <div class="status-bar">
+          <span>09:41</span>
+          <span>Wi-Fi • 100%</span>
+        </div>
+        <div class="app-header">
+          <div class="header-top">
+            <div>
+              <div class="app-title">SmartPlant</div>
+              <div class="app-subtitle">Ecossistema de Saúde Botânica</div>
+            </div>
+            <span class="badge-online">Sensor Ativo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-body">
+        <div class="plant-banner">
+          <div class="plant-info">
+            <h2>Calathea Makoyana</h2>
+            <span>Sala de Estar • Haste a 70mm</span>
+          </div>
+          <span class="battery-tag">Pilhas AA: 92%</span>
+        </div>
+
+        <!-- Cartão 1: Umidade do Solo -->
+        <div class="health-card">
+          <div class="card-top">
+            <span class="card-label">💧 Água na Terra (Umidade)</span>
+            <span class="card-value">68%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill-green"></div>
+          </div>
+          <div class="card-foot">
+            <span>Status: Terra Úmida Ideal</span>
+            <span>Meta: 60% - 80%</span>
+          </div>
+        </div>
+
+        <!-- Cartão 2: Luz Solar -->
+        <div class="health-card">
+          <div class="card-top">
+            <span class="card-label">☀️ Luz Solar (Antena Externa)</span>
+            <span class="card-value">Ideal</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill-sun"></div>
+          </div>
+          <div class="card-foot">
+            <span>Meia-sombra (Luz indireta)</span>
+            <span>Nível Bom</span>
+          </div>
+        </div>
+
+        <!-- Cartão 3 e 4: pH e Nutrientes NPK -->
+        <div class="grid-2">
+          <div class="mini-card">
+            <span class="card-label">🧪 Nível de pH</span>
+            <div class="mini-val">6.5</div>
+            <span class="status-pill-ok">Levemente Ácido</span>
+          </div>
+          <div class="mini-card">
+            <span class="card-label">🌱 Adubo (NPK)</span>
+            <div class="mini-val">Bom</div>
+            <span class="status-pill-ok">Solo Nutritivo</span>
+          </div>
+        </div>
+
+        <div class="alert-box">
+          <strong>🔔 Aviso Inteligente:</strong> A umidade está ótima hoje. Próxima rega estimada em <strong>2 dias</strong>.
+        </div>
+
+        <button class="btn-primary">Perguntar ao Assistente IA →</button>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item active"><span>🌿</span><span>Planta</span></div>
+        <div class="nav-item"><span>💬</span><span>Chat IA</span></div>
+        <div class="nav-item"><span>⭐</span><span>Premium</span></div>
+      </div>
+    </div>
+
+    <!-- TELA 2: ASSISTENTE IA TROPICAL (RAG) -->
+    <div class="phone-frame" id="tela-chat-ia">
+      <div>
+        <div class="status-bar">
+          <span>09:42</span>
+          <span>Wi-Fi • 100%</span>
+        </div>
+        <div class="app-header">
+          <div class="header-top">
+            <div>
+              <div class="app-title">Assistente SmartPlant IA</div>
+              <div class="app-subtitle">Base Botânica Tropical (pt-BR)</div>
+            </div>
+            <span class="badge-online">RAG Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-body">
+        <div class="chat-bubble-user">
+          As pontas das folhas da minha Calathea estão ficando secas. O que eu faço?
+        </div>
+
+        <div class="chat-bubble-ai">
+          <span class="ai-tag">✨ Diagnóstico cruzado com seu vaso</span>
+          Olhei os dados da sua <strong>Calathea</strong> agora:<br><br>
+          • <strong>Água na terra:</strong> 68% (Ideal)<br>
+          • <strong>pH do solo:</strong> 6.5 (Ideal)<br>
+          • <strong>Temperatura:</strong> 27°C<br><br>
+          Como a terra já está úmida e adubada, as pontas secas são causadas pelo <strong>ar seco do ambiente</strong>. Borrife água nas folhas 2x por semana e evite vento direto!
+        </div>
+
+        <div class="quick-chips">
+          <span class="chip">Quando devo adubar?</span>
+          <span class="chip">Como corrigir o pH?</span>
+          <span class="chip">Precisa de mais sol?</span>
+        </div>
+
+        <div class="chat-input-bar">
+          <span>Digite sua dúvida em português...</span>
+          <strong>Enviar</strong>
+        </div>
+
+        <button class="btn-primary">Ver Plano Premium (R$ 14,90) →</button>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span>🌿</span><span>Planta</span></div>
+        <div class="nav-item active"><span>💬</span><span>Chat IA</span></div>
+        <div class="nav-item"><span>⭐</span><span>Premium</span></div>
+      </div>
+    </div>
+
+    <!-- TELA 3: ASSINATURA PREMIUM SAAS & LGPD/PNRS -->
+    <div class="phone-frame" id="tela-premium">
+      <div>
+        <div class="status-bar">
+          <span>09:43</span>
+          <span>Wi-Fi • 100%</span>
+        </div>
+        <div class="app-header">
+          <div class="header-top">
+            <div>
+              <div class="app-title">SmartPlant Premium</div>
+              <div class="app-subtitle">Inteligência em Nuvem & Diagnósticos</div>
+            </div>
+            <span class="badge-online">SaaS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-body">
+        <div class="price-card">
+          <span class="plan-tag">Plano Recomendado</span>
+          <div class="price-big">R$ 14,90 <small>/mês</small></div>
+          <p style="font-size: 11.5px; color: #D1FAE5;">Cancele quando quiser • 7 dias grátis</p>
+        </div>
+
+        <div class="benefit-list">
+          <div class="benefit-item"><span class="check-icon">✔</span> Consultas ilimitadas no Chat de IA Tropical</div>
+          <div class="benefit-item"><span class="check-icon">✔</span> Diagnóstico preventivo de pragas e fungos</div>
+          <div class="benefit-item"><span class="check-icon">✔</span> Recomendação exata de adubo NPK e correção de pH</div>
+          <div class="benefit-item"><span class="check-icon">✔</span> Integração Alexa, Google Home e Matter</div>
+        </div>
+
+        <div class="payment-row">
+          <div class="pay-option">💠 Pix Instantâneo</div>
+          <div class="pay-option" style="border-color:#CBD5E1; color:#64748B;">💳 Cartão Crédito</div>
+        </div>
+
+        <div class="eco-box">
+          <strong>♻️ Descarte Ecológico (PNRS) & LGPD:</strong> Seus dados de telemetria são protegidos. Ao trocar as 2 pilhas AA, entregue as usadas em pontos de coleta ecológica.
+        </div>
+
+        <button class="btn-primary">Assinar Agora com Pix</button>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-item"><span>🌿</span><span>Planta</span></div>
+        <div class="nav-item"><span>💬</span><span>Chat IA</span></div>
+        <div class="nav-item active"><span>⭐</span><span>Premium</span></div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
