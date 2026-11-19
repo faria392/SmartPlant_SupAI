@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartPlant AI (by Sup AI) — Telas 4 e 5 | Gabriel Nascimento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #E2E8F0;
+      color: #0F172A;
+      padding: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 56px;
+      min-height: 100vh;
+    }
+
+    .screen-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .frame-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1B4332;
+      background: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #BBF7D0;
+      letter-spacing: 0.01em;
+    }
+
+    /* Moldura Mobile exata 375x812px */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background-color: #ECFDF5;
+      border-radius: 36px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.14);
+      border: 1px solid #CBD5E1;
+      position: relative;
+    }
+
+    /* Cabeçalho Verde Escuro #1B4332 */
+    .app-header {
+      background-color: #1B4332;
+      color: #FFFFFF;
+      padding: 12px 20px 18px 20px;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      flex-shrink: 0;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #D1FAE5;
+      margin-bottom: 12px;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #FFFFFF;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 400;
+      color: #A7F3D0;
+      margin-top: 2px;
+    }
+
+    .header-badge {
+      background-color: #22C55E;
+      color: #052E16;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .header-badge-online {
+      background-color: rgba(34, 197, 94, 0.2);
+      color: #86EFAC;
+      border: 1px solid rgba(134, 239, 172, 0.4);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .dot-live {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #22C55E;
+    }
+
+    /* Corpo principal */
+    .screen-body {
+      flex: 1;
+      padding: 14px 16px 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      overflow: hidden;
+    }
+
+    /* Stepper Tela 4 */
+    .stepper {
+      background-color: #FFFFFF;
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #D1FAE5;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748B;
+    }
+
+    .step-item.done {
+      color: #15803D;
+    }
+
+    .step-item.active {
+      color: #1B4332;
+      font-weight: 700;
+    }
+
+    .step-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      background-color: #E2E8F0;
+      color: #475569;
+    }
+
+    .step-item.done .step-circle {
+      background-color: #22C55E;
+      color: #FFFFFF;
+    }
+
+    .step-item.active .step-circle {
+      background-color: #1B4332;
+      color: #FFFFFF;
+    }
+
+    .step-line {
+      width: 18px;
+      height: 2px;
+      background-color: #CBD5E1;
+      border-radius: 2px;
+    }
+
+    .step-line.done {
+      background-color: #22C55E;
+    }
+
+    /* Cartões Brancos #FFFFFF */
+    .card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 13px 14px;
+      border: 1px solid #D1FAE5;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-success {
+      background-color: #DCFCE7;
+      color: #15803D;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .pill-neutral {
+      background-color: #F1F5F9;
+      color: #475569;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    /* Dispositivo BLE encontrado */
+    .device-selected {
+      background-color: #F0FDF4;
+      border: 1.5px solid #22C55E;
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .device-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .device-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background-color: #1B4332;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .device-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .device-meta {
+      font-size: 10px;
+      color: #15803D;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .device-secondary {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .device-sec-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .device-sec-meta {
+      font-size: 10px;
+      color: #64748B;
+    }
+
+    /* Lista Wi-Fi Tela 4 */
+    .wifi-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 10px;
+      border-radius: 11px;
+      border: 1.5px solid #1B4332;
+      background-color: #F0FDF4;
+      margin-bottom: 8px;
+    }
+
+    .wifi-item-inactive {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      border-radius: 11px;
+      border: 1px solid #E2E8F0;
+      background-color: #FFFFFF;
+      margin-bottom: 9px;
+    }
+
+    .wifi-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wifi-ssid {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .wifi-sub {
+      font-size: 10px;
+      color: #15803D;
+      font-weight: 500;
+    }
+
+    .input-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .password-box {
+      width: 100%;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid #CBD5E1;
+      background-color: #F8FAFC;
+      padding: 0 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0F172A;
+      letter-spacing: 1.5px;
+    }
+
+    .helper-text {
+      font-size: 10px;
+      color: #64748B;
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    /* Botão Primário */
+    .btn-primary {
+      width: 100%;
+      height: 44px;
+      background-color: #1B4332;
+      color: #FFFFFF;
+      border-radius: 13px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(27, 67, 50, 0.22);
+      flex-shrink: 0;
+    }
+
+    .btn-outline {
+      width: 100%;
+      height: 38px;
+      background-color: #F0FDF4;
+      color: #1B4332;
+      border: 1.5px solid #1B4332;
+      border-radius: 11px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    /* Tela 5: Hardware Hero Card */
+    .hw-hero {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hw-illustration {
+      width: 56px;
+      height: 68px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #1B4332 0%, #15803D 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hw-details {
+      flex: 1;
+    }
+
+    .hw-model {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .hw-fw {
+      font-size: 10px;
+      color: #64748B;
+      margin-top: 2px;
+      margin-bottom: 7px;
+    }
+
+    .cert-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .badge-anatel {
+      background-color: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+    }
+
+    .badge-ip65 {
+      background-color: #DCFCE7;
+      color: #15803D;
+      border: 1px solid #86EFAC;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+    }
+
+    /* Grid 2 Colunas Tela 5 */
+    .metrics-grid {
+      display: flex;
+      gap: 10px;
+    }
+
+    .metric-card {
+      flex: 1;
+      background-color: #FFFFFF;
+      border-radius: 15px;
+      padding: 11px 12px;
+      border: 1px solid #D1FAE5;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+
+    .metric-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .metric-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+      line-height: 1.1;
+    }
+
+    .metric-sub {
+      font-size: 9.5px;
+      color: #15803D;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background-color: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .progress-fill {
+      width: 86%;
+      height: 100%;
+      background-color: #22C55E;
+      border-radius: 999px;
+    }
+
+    /* Lista de Calibração Tela 5 */
+    .sensor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .sensor-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 9px;
+      background-color: #F8FAFC;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .sensor-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot-green {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #22C55E;
+      flex-shrink: 0;
+    }
+
+    .status-dot-yellow {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #EAB308;
+      flex-shrink: 0;
+    }
+
+    .sensor-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #0F172A;
+    }
+
+    .sensor-spec {
+      font-size: 9.5px;
+      color: #64748B;
+    }
+
+    .sensor-status-ok {
+      font-size: 10px;
+      font-weight: 700;
+      color: #15803D;
+      background-color: #DCFCE7;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .sensor-status-warn {
+      font-size: 10px;
+      font-weight: 700;
+      color: #A16207;
+      background-color: #FEF9C3;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    /* Barra de Navegação Inferior (5 Abas do Grupo) */
+    .bottom-nav {
+      background-color: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 8px 10px 14px 10px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #64748B;
+    }
+
+    .nav-item.active {
+      color: #1B4332;
+      font-weight: 700;
+    }
+
+    .nav-active-pill {
+      background-color: #DCFCE7;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- TELA 4 — PAREAMENTO BLE / WI-FI (GABRIEL NASCIMENTO)      -->
+  <!-- ========================================================= -->
+  <div class="screen-wrapper">
+    <div class="frame-label">Tela 4 — Pareamento BLE/Wi-Fi</div>
+    <div class="phone-frame" id="tela-4-pareamento-ble-wifi">
+      <!-- Cabeçalho Verde Escuro #1B4332 -->
+      <div class="app-header">
+        <div class="status-bar">
+          <span>9:41</span>
+          <div class="status-icons">
+            <!-- Bluetooth SVG -->
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polyline>
+            </svg>
+            <!-- Wi-Fi SVG -->
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D1FAE5" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+              <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+              <line x1="12" y1="20" x2="12.01" y2="20"></line>
+            </svg>
+            <!-- Battery SVG -->
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D1FAE5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="16" height="10" rx="2" ry="2"></rect>
+              <line x1="22" y1="11" x2="22" y2="13"></line>
+            </svg>
+          </div>
+        </div>
+
+        <div class="header-top">
+          <div class="header-left">
+            <div class="back-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div class="header-title">Pareamento SmartPlant</div>
+              <div class="header-subtitle">Bluetooth BLE 5.0 &amp; Wi-Fi Doméstico</div>
+            </div>
+          </div>
+          <span class="header-badge">Etapa 2/3</span>
+        </div>
+      </div>
+
+      <!-- Conteúdo Principal -->
+      <div class="screen-body">
+        <!-- Stepper 3 Passos -->
+        <div class="stepper">
+          <div class="step-item done">
+            <span class="step-circle">✓</span>
+            <span>BLE</span>
+          </div>
+          <div class="step-line done"></div>
+          <div class="step-item active">
+            <span class="step-circle">2</span>
+            <span>Wi-Fi</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item">
+            <span class="step-circle">3</span>
+            <span>Solo 70mm</span>
+          </div>
+        </div>
+
+        <!-- Cartão 1: Busca BLE -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polyline>
+              </svg>
+              <span>Sensores Próximos (BLE)</span>
+            </div>
+            <span class="pill-success">1 Pareado</span>
+          </div>
+
+          <div class="device-selected">
+            <div class="device-info">
+              <div class="device-icon-box">
+                <!-- Ícone Sensor SmartPlant formato processador + haste -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#86EFAC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="4" width="12" height="10" rx="2"></rect>
+                  <line x1="9" y1="2" x2="9" y2="4"></line>
+                  <line x1="15" y1="2" x2="15" y2="4"></line>
+                  <line x1="4" y1="7" x2="6" y2="7"></line>
+                  <line x1="4" y1="11" x2="6" y2="11"></line>
+                  <line x1="18" y1="7" x2="20" y2="7"></line>
+                  <line x1="18" y1="11" x2="20" y2="11"></line>
+                  <line x1="12" y1="14" x2="12" y2="22"></line>
+                </svg>
+              </div>
+              <div>
+                <div class="device-name">SmartPlant Core #SP-042</div>
+                <div class="device-meta">BLE 5.0 • Sinal -48 dBm (Forte)</div>
+              </div>
+            </div>
+            <span class="pill-success">Ativo</span>
+          </div>
+
+          <div class="device-secondary">
+            <div>
+              <div class="device-sec-name">SmartPlant Vaso Varanda #SP-019</div>
+              <div class="device-sec-meta">Disponível via Bluetooth • -71 dBm</div>
+            </div>
+            <span class="pill-neutral">Trocar</span>
+          </div>
+        </div>
+
+        <!-- Cartão 2: Configuração Wi-Fi -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+              </svg>
+              <span>Conexão Wi-Fi Doméstico</span>
+            </div>
+            <span class="pill-neutral">2.4 GHz</span>
+          </div>
+
+          <div class="wifi-item">
+            <div class="wifi-left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+              </svg>
+              <div>
+                <div class="wifi-ssid">Casa_Gabriel_2.4G</div>
+                <div class="wifi-sub">Sinal Excelente (92%) • WPA2</div>
+              </div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+
+          <div class="wifi-item-inactive">
+            <div class="wifi-left">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+              </svg>
+              <div>
+                <div class="device-sec-name">SupAI_Lab_IoT</div>
+                <div class="device-sec-meta">Sinal Médio (68%)</div>
+              </div>
+            </div>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+
+          <label class="input-label">Senha da Rede Wi-Fi</label>
+          <div class="password-box">
+            <span>••••••••••••</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+          <div class="helper-text">O SmartPlant usa Wi-Fi 2.4 GHz para enviar telemetria à nuvem Sup AI.</div>
+        </div>
+
+        <!-- Botão de Ação -->
+        <div class="btn-primary">
+          <span>Conectar Sensor ao Wi-Fi</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Barra de Navegação Inferior (5 Abas do Grupo) -->
+      <div class="bottom-nav">
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          </svg>
+          <span>Início</span>
+        </div>
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22v-7"></path>
+            <path d="M9 15c-3 0-5-2-5-5 3 0 5 2 5 5z"></path>
+            <path d="M15 15c3 0 5-2 5-5-3 0-5 2-5 5z"></path>
+          </svg>
+          <span>Meus Vasos</span>
+        </div>
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>Chat IA</span>
+        </div>
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Histórico</span>
+        </div>
+        <div class="nav-item active">
+          <div class="nav-active-pill">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="4" width="12" height="10" rx="2"></rect>
+              <line x1="12" y1="14" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <span>Sensor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- TELA 5 — SAÚDE DO DISPOSITIVO (GABRIEL NASCIMENTO)        -->
+  <!-- ========================================================= -->
+  <div class="screen-wrapper">
+    <div class="frame-label">Tela 5 — Saúde do Dispositivo</div>
+    <div class="phone-frame" id="tela-5-saude-dispositivo">
+      <!-- Cabeçalho Verde Escuro #1B4332 -->
+      <div class="app-header">
+        <div class="status-bar">
+          <span>9:41</span>
+          <div class="status-icons">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polyline>
+            </svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D1FAE5" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+              <line x1="12" y1="20" x2="12.01" y2="20"></line>
+            </svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D1FAE5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="16" height="10" rx="2" ry="2"></rect>
+              <line x1="22" y1="11" x2="22" y2="13"></line>
+            </svg>
+          </div>
+        </div>
+
+        <div class="header-top">
+          <div class="header-left">
+            <div class="back-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div class="header-title">Saúde do Dispositivo</div>
+              <div class="header-subtitle">Diagnóstico IoT • Vaso Jiboia Sala</div>
+            </div>
+          </div>
+          <div class="header-badge-online">
+            <span class="dot-live"></span>
+            <span>Online</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conteúdo Principal -->
+      <div class="screen-body">
+        <!-- Cartão 1: Hardware + Selo Anatel / IP65 -->
+        <div class="card">
+          <div class="hw-hero">
+            <div class="hw-illustration">
+              <!-- Ilustração Sensor Processador + Antena de Luz + Haste 70mm -->
+              <svg width="36" height="50" viewBox="0 0 36 50" fill="none" stroke="#86EFAC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Antena de luz externa -->
+                <circle cx="18" cy="4" r="2.5" fill="#22C55E" stroke="none"></circle>
+                <line x1="18" y1="6.5" x2="18" y2="11"></line>
+                <!-- Corpo processador -->
+                <rect x="8" y="11" width="20" height="16" rx="3" fill="rgba(255,255,255,0.12)"></rect>
+                <rect x="13" y="15" width="10" height="8" rx="1.5"></rect>
+                <!-- Pinos laterais -->
+                <line x1="5" y1="15" x2="8" y2="15"></line>
+                <line x1="5" y1="19" x2="8" y2="19"></line>
+                <line x1="5" y1="23" x2="8" y2="23"></line>
+                <line x1="28" y1="15" x2="31" y2="15"></line>
+                <line x1="28" y1="19" x2="31" y2="19"></line>
+                <line x1="28" y1="23" x2="31" y2="23"></line>
+                <!-- Haste de 70mm no solo -->
+                <line x1="15" y1="27" x2="15" y2="46"></line>
+                <line x1="21" y1="27" x2="21" y2="46"></line>
+                <path d="M15 46 L18 49 L21 46"></path>
+              </svg>
+            </div>
+            <div class="hw-details">
+              <div class="hw-model">SmartPlant Core #SP-042</div>
+              <div class="hw-fw">Firmware v2.4.1 • Haste 70mm • Sync há 2 min</div>
+              <div class="cert-badges">
+                <span class="badge-anatel">✓ ANATEL 14892-26</span>
+                <span class="badge-ip65">✓ Vedação IP65</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid 2 Colunas: Bateria (2 pilhas AA) e Sinal Wi-Fi -->
+        <div class="metrics-grid">
+          <!-- Bateria 2x AA -->
+          <div class="metric-card">
+            <div class="metric-top">
+              <span class="metric-label">Bateria (2x AA)</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="16" height="10" rx="2"></rect>
+                <rect x="4" y="9" width="10" height="6" fill="#22C55E" stroke="none"></rect>
+                <line x1="22" y1="11" x2="22" y2="13"></line>
+              </svg>
+            </div>
+            <div class="metric-value">86%</div>
+            <div class="progress-track">
+              <div class="progress-fill"></div>
+            </div>
+            <div class="metric-sub">2.94V • ~7 meses rest.</div>
+          </div>
+
+          <!-- Sinal Wi-Fi -->
+          <div class="metric-card">
+            <div class="metric-top">
+              <span class="metric-label">Sinal Wi-Fi</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+              </svg>
+            </div>
+            <div class="metric-value">-54 dBm</div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: 90%;"></div>
+            </div>
+            <div class="metric-sub">Forte • Casa_Gabriel</div>
+          </div>
+        </div>
+
+        <!-- Cartão 3: Calibração dos Sensores -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Calibração dos Sensores</span>
+            </div>
+            <span class="pill-success">4/4 Ativos</span>
+          </div>
+
+          <div class="sensor-list">
+            <div class="sensor-row">
+              <div class="sensor-left">
+                <span class="status-dot-green"></span>
+                <div>
+                  <div class="sensor-name">Umidade do Solo (Haste 70mm)</div>
+                  <div class="sensor-spec">Leitura capacitiva: 68%</div>
+                </div>
+              </div>
+              <span class="sensor-status-ok">Calibrado</span>
+            </div>
+
+            <div class="sensor-row">
+              <div class="sensor-left">
+                <span class="status-dot-green"></span>
+                <div>
+                  <div class="sensor-name">Antena de Luz Externa</div>
+                  <div class="sensor-spec">Fotodiodo: 420 lux indireta</div>
+                </div>
+              </div>
+              <span class="sensor-status-ok">Calibrado</span>
+            </div>
+
+            <div class="sensor-row">
+              <div class="sensor-left">
+                <span class="status-dot-green"></span>
+                <div>
+                  <div class="sensor-name">Sensor de pH do Substrato</div>
+                  <div class="sensor-spec">Faixa neutra: pH 6.5</div>
+                </div>
+              </div>
+              <span class="sensor-status-ok">Calibrado</span>
+            </div>
+
+            <div class="sensor-row">
+              <div class="sensor-left">
+                <span class="status-dot-yellow"></span>
+                <div>
+                  <div class="sensor-name">Condutividade NPK</div>
+                  <div class="sensor-spec">Ajuste recomendado em 5 dias</div>
+                </div>
+              </div>
+              <span class="sensor-status-warn">Atenção</span>
+            </div>
+          </div>
+
+          <div class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+            <span>Recalibrar Sensores Agora</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Navegação Inferior (5 Abas do Grupo) -->
+      <div class="bottom-nav">
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          </svg>
+          <span>Início</span>
+        </div>
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22v-7"></path>
+            <path d="M9 15c-3 0-5-2-5-5 3 0 5 2 5 5z"></path>
+            <path d="M15 15c3 0 5-2 5-5-3 0-5 2-5 5z"></path>
+          </svg>
+          <span>Meus Vasos</span>
+        </div>
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>Chat IA</span>
+        </div>
+        <div class="nav-item">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Histórico</span>
+        </div>
+        <div class="nav-item active">
+          <div class="nav-active-pill">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="4" width="12" height="10" rx="2"></rect>
+              <line x1="12" y1="14" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <span>Sensor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
