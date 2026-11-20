@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPlant AI - Módulo 5 (Pedro Botto)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #0F172A;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #0F172A;
+        }
+
+        .page-header {
+            text-align: center;
+            color: #FFFFFF;
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #22C55E;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            font-size: 14px;
+            color: #94A3B8;
+        }
+
+        .screens-wrapper {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* Moldura Smartphone 375x812px */
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background-color: #ECFDF5;
+            border-radius: 36px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            border: 8px solid #1E293B;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            background-color: #1B4332;
+            color: #FFFFFF;
+            height: 32px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* App Header */
+        .app-header {
+            background-color: #1B4332;
+            color: #FFFFFF;
+            padding: 12px 20px 18px 20px;
+            flex-shrink: 0;
+        }
+
+        .app-header .badge-top {
+            display: inline-block;
+            background-color: rgba(34, 197, 94, 0.25);
+            color: #A7F3D0;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 99px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .app-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .app-header p {
+            font-size: 12px;
+            color: #D1FAE5;
+            margin-top: 3px;
+        }
+
+        /* Content Area */
+        .screen-content {
+            flex: 1;
+            padding: 14px 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        /* White Card */
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 14px;
+            padding: 13px 14px;
+            box-shadow: 0 2px 8px rgba(27, 67, 50, 0.06);
+            border: 1px solid #D1FAE5;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1B4332;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* FAQ Items */
+        .faq-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #ECFDF5;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-item:first-child {
+            padding-top: 0;
+        }
+
+        .faq-q {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0F172A;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+
+        .faq-a {
+            font-size: 11px;
+            color: #475569;
+            line-height: 1.35;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #15803D;
+            color: #FFFFFF;
+        }
+
+        .btn-whatsapp {
+            background-color: #16A34A;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .btn-outline {
+            background-color: #FFFFFF;
+            color: #1B4332;
+            border: 1.5px solid #1B4332;
+        }
+
+        .btn-warning {
+            background-color: #FEF3C7;
+            color: #B45309;
+            border: 1px solid #F59E0B;
+        }
+
+        /* Store & B2B Styles */
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #ECFDF5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            border: 1px solid #A7F3D0;
+            flex-shrink: 0;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0F172A;
+        }
+
+        .product-info p {
+            font-size: 10.5px;
+            color: #64748B;
+            margin-top: 2px;
+        }
+
+        .price-tag {
+            font-size: 13px;
+            font-weight: 700;
+            color: #15803D;
+            margin-top: 4px;
+        }
+
+        .badge-upsell {
+            background-color: #DCFCE7;
+            color: #15803D;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .b2b-card {
+            background: linear-gradient(135deg, #1B4332 0%, #15803D 100%);
+            color: #FFFFFF;
+            border-radius: 14px;
+            padding: 13px 14px;
+        }
+
+        .b2b-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .b2b-card p {
+            font-size: 11px;
+            color: #ECFDF5;
+            line-height: 1.35;
+            margin-bottom: 10px;
+        }
+
+        .btn-b2b {
+            background-color: #FFFFFF;
+            color: #1B4332;
+            font-weight: 700;
+            padding: 9px 12px;
+            border-radius: 8px;
+            font-size: 11.5px;
+            width: 100%;
+            border: none;
+            text-align: center;
+        }
+
+        .inpi-footer {
+            background-color: #FFFFFF;
+            border: 1px dashed #15803D;
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10.5px;
+            color: #1E293B;
+        }
+
+        /* Beta Testing Form Styles */
+        .stars-row {
+            display: flex;
+            gap: 8px;
+            font-size: 22px;
+            color: #EAB308;
+            margin: 6px 0;
+            justify-content: center;
+        }
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .check-pill {
+            background-color: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            border-radius: 8px;
+            padding: 6px 8px;
+            font-size: 10.5px;
+            font-weight: 600;
+            color: #1B4332;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .fake-textarea {
+            width: 100%;
+            height: 62px;
+            background-color: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 11px;
+            color: #475569;
+            margin-top: 6px;
+            line-height: 1.35;
+        }
+
+        /* Bottom Navigation Bar (5 Tabs) */
+        .bottom-nav {
+            height: 64px;
+            background-color: #FFFFFF;
+            border-top: 1px solid #D1FAE5;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 6px;
+            flex-shrink: 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 9.5px;
+            font-weight: 500;
+            color: #64748B;
+            gap: 3px;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: #15803D;
+            font-weight: 700;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>SmartPlant AI (by Sup AI) — Protótipo Mobile</h1>
+        <p>Módulo 5: Pedro Botto (Marketing, Comercial, Suporte Digital & Beta Testing — Itens PB-25 a PB-30)</p>
+    </div>
+
+    <div class="screens-wrapper">
+
+        <!-- ==================== TELA 1: CENTRAL DE AJUDA, FAQ E SUPORTE (PB-28) ==================== -->
+        <div class="phone-frame" id="tela-1-suporte-faq">
+            <div class="status-bar">
+                <span>09:41</span>
+                <span>Wi-Fi • 100% 🔋</span>
+            </div>
+
+            <div class="app-header">
+                <span class="badge-top">PB-28 • Suporte 100% Digital</span>
+                <h2>Central de Ajuda & FAQ</h2>
+                <p>Tire dúvidas rápidas sobre seu vaso e sensor IoT</p>
+            </div>
+
+            <div class="screen-content">
+                <div class="card">
+                    <div class="section-title">
+                        <span>Perguntas Frequentes (FAQ)</span>
+                        <span>▼</span>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q">
+                            <span>1. Como posicionar a haste de 70mm?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-a">
+                            Espete a haste verticalmente no solo próximo à raiz e mantenha a antena de luz acima das folhas.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q">
+                            <span>2. Posso regar o vaso normalmente?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-a">
+                            Sim! O gabinete em formato de processador possui vedação IP65 contra água e terra.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q">
+                            <span>3. Como parear no Bluetooth e Wi-Fi?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-a">
+                            Ative o Bluetooth no celular, abra a aba de Conexão e escolha sua rede Wi-Fi 2.4GHz em 60 segundos.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q">
+                            <span>4. O aparelho não acende luz nem apita?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-a">
+                            Nosso design é 100% silencioso e sem LEDs para não interferir na decoração. Todos os alertas chegam no app.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-q">
+                            <span>5. Quanto tempo duram as 2 pilhas AA?</span>
+                            <span>+</span>
+                        </div>
+                        <div class="faq-a">
+                            Mais de 6 meses em modo Deep-Sleep. A tampa abre facilmente com as mãos sem chave de fenda.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="section-title">
+                        <span>Canais de Atendimento Rápido</span>
+                        <span>SLA &lt; 2h</span>
+                    </div>
+                    <p style="font-size: 11px; color: #475569; margin-bottom: 10px;">
+                        Precisa de ajuda com seu sensor ou assinatura IA? Fale direto com nossa equipe digital:
+                    </p>
+                    <button class="btn btn-whatsapp">💬 Atendimento Rápido via WhatsApp</button>
+                    <button class="btn btn-outline">✉️ Enviar E-mail (suporte@smartplant.com.br)</button>
+                </div>
+
+                <div class="card" style="background-color: #F0FDF4; border-color: #86EFAC;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 11.5px; font-weight: 700; color: #1B4332;">Vai comprar mais vasos ou testar o Beta?</div>
+                            <div style="font-size: 10px; color: #15803D;">Acesse a Loja Oficial ou avalie nosso MVP</div>
+                        </div>
+                        <span style="font-size: 16px;">➔</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Início</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🪴</span>
+                    <span>Meus Vasos</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🤖</span>
+                    <span>Assistente IA</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Histórico</span>
+                </div>
+                <div class="nav-item active">
+                    <span class="nav-icon">🛍️</span>
+                    <span>Menu/Loja</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TELA 2: LOJA OFICIAL & PARCERIAS B2B (PB-26, 27, 29, 30) ==================== -->
+        <div class="phone-frame" id="tela-2-loja-b2b">
+            <div class="status-bar">
+                <span>09:41</span>
+                <span>Wi-Fi • 100% 🔋</span>
+            </div>
+
+            <div class="app-header">
+                <span class="badge-top">PB-26 • PB-27 • PB-29 • PB-30</span>
+                <h2>Loja Oficial & Parcerias B2B</h2>
+                <p>smartplant.com.br • Fim da Adivinhação Botânica</p>
+            </div>
+
+            <div class="screen-content">
+                <!-- Produto 1: Sensor Avulso -->
+                <div class="card">
+                    <div class="section-title">
+                        <span>Vitrine Oficial B2C</span>
+                        <span class="badge-upsell">Pronta Entrega</span>
+                    </div>
+                    <div class="product-row">
+                        <div class="product-icon">🔲</div>
+                        <div class="product-info">
+                            <h3>Sensor SmartPlant AI (Avulso)</h3>
+                            <p>Design Processador + Haste 70mm (pH, NPK, Umidade, Luz e Temp) + 2 Pilhas AA</p>
+                            <div class="price-tag">R$ 189,00 <span style="font-size: 10px; font-weight: 400; color: #64748B;">(Lote Promocional / Tab. R$ 249)</span></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 10px;">🛒 Comprar Sensor Avulso</button>
+                </div>
+
+                <!-- Produto 2: Kit 3 Unidades -->
+                <div class="card">
+                    <div class="section-title">
+                        <span>Combo Multi-Vasos (Mais Vendido)</span>
+                        <span class="badge-upsell">Economize R$ 118</span>
+                    </div>
+                    <div class="product-row">
+                        <div class="product-icon">🌿</div>
+                        <div class="product-info">
+                            <h3>Kit 3 Unidades SmartPlant AI</h3>
+                            <p>Ideal para monitorar múltiplos vasos + 30 dias grátis do Assistente IA Premium (R$ 14,90/mês)</p>
+                            <div class="price-tag">R$ 449,00 <span style="font-size: 10px; font-weight: 400; color: #64748B;">ou 6x de R$ 74,83 sem juros</span></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 10px;">✨ Comprar Kit com 3 Unidades</button>
+                </div>
+
+                <!-- Seção B2B Atacado -->
+                <div class="b2b-card">
+                    <h3>🏢 Parcerias B2B & Atacado (PB-27)</h3>
+                    <p>
+                        Possui Floricultura, Garden Center, Pet Shop ou empresa de Paisagismo Corporativo? Solicite pacotes no atacado com desconto para venda casada.
+                    </p>
+                    <button class="btn-b2b">📋 Solicitar Tabela B2B para Lojistas</button>
+                </div>
+
+                <!-- Selo INPI & Cross-selling -->
+                <div class="inpi-footer">
+                    <span style="font-size: 18px;">🛡️</span>
+                    <div>
+                        <strong>Marca Registrada Oficial no INPI (Classe 09)</strong><br>
+                        <span>By Sup AI • Desconto exclusivo para usuários <strong>Nutri AI</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Início</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🪴</span>
+                    <span>Meus Vasos</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🤖</span>
+                    <span>Assistente IA</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Histórico</span>
+                </div>
+                <div class="nav-item active">
+                    <span class="nav-icon">🛍️</span>
+                    <span>Menu/Loja</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TELA 3: PROGRAMA DE TESTES BETA "PLANT PARENTING" (PB-25) ==================== -->
+        <div class="phone-frame" id="tela-3-beta-testing">
+            <div class="status-bar">
+                <span>09:41</span>
+                <span>Wi-Fi • 100% 🔋</span>
+            </div>
+
+            <div class="app-header">
+                <span class="badge-top">PB-25 • Validação de Campo Campinas-SP</span>
+                <h2>Programa Beta "Plant Parenting"</h2>
+                <p>Avalie a precisão do MVP nas suas plantas reais</p>
+            </div>
+
+            <div class="screen-content">
+                <div class="card">
+                    <div class="section-title">
+                        <span>Perfil do Testador Voluntário</span>
+                        <span class="badge-upsell">Beta Ativo</span>
+                    </div>
+                    <p style="font-size: 11px; color: #475569;">
+                        <strong>Voluntário:</strong> Grupo Plant Parenting (25–40 anos)<br>
+                        <strong>Substrato em teste:</strong> Terra vegetal + Jiboia / Costela-de-Adão
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="section-title">
+                        <span>1. Nota Geral para a Precisão do Sensor</span>
+                    </div>
+                    <div class="stars-row">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p style="text-align: center; font-size: 10.5px; color: #15803D; font-weight: 600;">
+                        5 de 5 estrelas — Leituras rápidas e confiáveis!
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="section-title">
+                        <span>2. Parâmetros Validados no Vaso</span>
+                    </div>
+                    <div class="check-grid">
+                        <div class="check-pill">✅ Umidade (70mm)</div>
+                        <div class="check-pill">✅ Eletrodo de pH</div>
+                        <div class="check-pill">✅ Nutrientes NPK</div>
+                        <div class="check-pill">✅ Antena de Luz</div>
+                        <div class="check-pill">✅ Temp. do Solo</div>
+                        <div class="check-pill">✅ 2 Pilhas AA</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="section-title">
+                        <span>3. Feedback de Usabilidade & Calibração</span>
+                    </div>
+                    <div class="fake-textarea">
+                        "A haste de 70mm ficou super firme no vaso e a IA em português acertou exatamente o momento da rega e correção de pH!"
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 10px;">🚀 Enviar Avaliação do MVP</button>
+                    <button class="btn btn-warning" style="margin-top: 7px;">⚠️ Reportar Problema Técnico / Leitura</button>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <div class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span>Início</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🪴</span>
+                    <span>Meus Vasos</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🤖</span>
+                    <span>Assistente IA</span>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Histórico</span>
+                </div>
+                <div class="nav-item active">
+                    <span class="nav-icon">🛍️</span>
+                    <span>Menu/Loja</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
