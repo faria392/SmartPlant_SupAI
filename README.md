@@ -4,7 +4,7 @@ Repositório com as telas em HTML e CSS do aplicativo mobile **SmartPlant AI** (
 
 O app faz o monitoramento de vasos de plantas integrado ao sensor IoT SmartPlant (haste de 70 mm para solo e antena externa de luminosidade), exibindo leituras em tempo real, diagnóstico do hardware e recomendações de cultivo.
 
-- **Protótipo navegável (Figma):** `[[cole o link do Figma aqui](https://www.figma.com/design/bAY8twk9CKrXcIzIlPqEGu/SmartPlant-AI---Prot%C3%B3tipo?node-id=0-1&t=OC2n75SVzWmcimn9-1)]`
+- **Protótipo navegável (Figma):** `https://www.figma.com/design/bAY8twk9CKrXcIzIlPqEGu/SmartPlant-AI---Prot%C3%B3tipo?node-id=0-1&t=OC2n75SVzWmcimn9-1`
 
 ## Como visualizar
 
